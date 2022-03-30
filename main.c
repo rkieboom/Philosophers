@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/03 14:42:23 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/03/17 19:36:30 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/03/30 20:01:12 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,15 @@
 #include <unistd.h>//sleep
 #include <stdlib.h>
 #include <pthread.h>
+
+#define KNRM  "\x1B[0m"
+#define KRED  "\x1B[31m"
+#define KGRN  "\x1B[32m"
+#define KYEL  "\x1B[33m"
+#define KBLU  "\x1B[34m"
+#define KMAG  "\x1B[35m"
+#define KCYN  "\x1B[36m"
+#define KWHT  "\x1B[37m"
 
 #include "header.h"
 
@@ -55,7 +64,7 @@ void	ft_eat(t_thread *v, long first_timestamp)
 void	*philo(void *var)
 {
 	long			start;
-	long			first_timestamp;
+	long			timestamp;
 	t_thread *args = (t_thread *)var;
 	if (!args)
 	{
@@ -63,52 +72,60 @@ void	*philo(void *var)
 		return (0);
 	}
 	start = get_time();
-	first_timestamp = start;
+	timestamp = start;
 	while (1)
 	{
-		if (check_if_dead(args, start))
+		if (check_if_dead(args, timestamp))
 		{
-			printf("%i. %lims died!\n", args->id, get_time() - start);
-			exit(1);
+			printf("%i. %li/%lims died!\n", args->id, get_time() - start, get_time() - start);
 			break ;
+		}
+		while (1)
+		{
+			if (args->forks->in_use == 0 && args->forks->right->in_use == 0)
+			{
+				args->forks->in_use = 1;
+				args->forks->right->in_use = 1;
+				break ;
+			}
+			usleep(100);
 		}
 		pthread_mutex_lock(&args->forks->mutex);
 		pthread_mutex_lock(&args->forks->right->mutex);
-		if (check_if_dead(args, start))
+		if (check_if_dead(args, timestamp))
 		{
-			printf("%i. %lims died!\n", args->id, get_time() - start);
-			pthread_mutex_unlock(&args->forks->mutex);
-			pthread_mutex_unlock(&args->forks->right->mutex);
-			exit(1);
+			printf("%i. %li/%lims died!\n", args->id, get_time() - start, get_time() - start);
+			// pthread_mutex_unlock(&args->forks->mutex);
+			// pthread_mutex_unlock(&args->forks->right->mutex);
 			break ;
 		}
-		printf("%lims %i has taken fork\n", get_time() - first_timestamp, args->id); //take forks
-		if (check_if_dead(args, start))
+		printf("%li/%lims %i has taken %sfork%s\n", get_time() - start, get_time() - timestamp, args->id, KBLU, KWHT); //take forks
+		if (check_if_dead(args, timestamp))
 		{
-			printf("%i. %lims died!\n", args->id, get_time() - start);
-			pthread_mutex_unlock(&args->forks->mutex);
-			pthread_mutex_unlock(&args->forks->right->mutex);
-			exit(1);
+			printf("%i. %li/%lims died!\n", args->id, get_time() - start, get_time() - start);
+			// pthread_mutex_unlock(&args->forks->mutex);
+			// pthread_mutex_unlock(&args->forks->right->mutex);
 			break ;
 		}
-		// ft_sleep(first_timestamp);
-		printf("%lims %i is eating\n", get_time() - first_timestamp, args->id); //eat
-		start = get_time();
-		first_timestamp = get_time();
+		// ft_sleep(timestamp);
+		printf("%li/%lims %i is %seating%s\n", get_time() - start, get_time() - timestamp, args->id, KGRN, KWHT); //eat
+		// start = get_time();
+		timestamp = get_time();
 		usleep(args->values->time_to_eat * 1000);
 		pthread_mutex_unlock(&args->forks->right->mutex);
 		pthread_mutex_unlock(&args->forks->mutex);
-		printf("%lims %i is sleeping\n", get_time() - first_timestamp, args->id);//sleep
+		args->forks->in_use = 0;
+		args->forks->right->in_use = 0;
+		printf("%li/%lims %i is %ssleeping%s\n", get_time() - start, get_time() - timestamp, args->id, KRED, KWHT);//sleep
 		usleep(args->values->time_to_sleep * 1000);
-		if (check_if_dead(args, start))
+		if (check_if_dead(args, timestamp))
 		{
-			printf("%i. %lims died!\n", args->id, get_time() - start);
-			pthread_mutex_unlock(&args->forks->mutex);
-			pthread_mutex_unlock(&args->forks->right->mutex);
-			exit(1);
+			printf("%i. %li/%lims died!\n", args->id, get_time() - start, get_time() - start);
+			// pthread_mutex_unlock(&args->forks->mutex);
+			// pthread_mutex_unlock(&args->forks->right->mutex);
 			break ;
 		}
-		printf("%lims %i is thinking\n", get_time() - first_timestamp, args->id);//think
+		printf("%li/%lims %i is thinking\n", get_time() - start, get_time() - timestamp, args->id);//think
 
 	}
 	int *ret = ft_calloc(1, sizeof(int));
@@ -171,7 +188,8 @@ int main(int argc, char **argv)
 	// 	ret[i] = ft_calloc(1, sizeof(int));
 	for (int i = 0; i < args->number_of_philosophers; i++)
 		pthread_join(pthread_id[i], (void*)&ret);
-	printf("%i. has died!\n", *ret);
+	printf("%i. has died!\n", *ret);\
+	exit(EXIT_SUCCESS);
 	temp = forks;
 	for (int i = 0; i < args->number_of_philosophers; i++)
 	{
