@@ -6,7 +6,7 @@
 #    By: rkieboom <rkieboom@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/03 16:05:06 by rkieboom      #+#    #+#                  #
-#    Updated: 2022/03/06 17:45:56 by rkieboom      ########   odam.nl          #
+#    Updated: 2022/03/31 15:13:56 by rkieboom      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,12 +28,14 @@ endif
 SRCDIR	= ./
 OBJDIR	= bin/
 
-SRCS =	main.c $(SRCS_FORKS) $(SRCS_FUNC)
+SRCS =	main.c $(SRCS_FORKS) $(SRCS_FUNC) $(SRCS_PHILO)
 
 SRCS_FORKS =	forks/create_fork.c forks/fork_add_back_last.c forks/fork_add_back.c \
 				forks/fork_add_front.c forks/fork_last.c
 
-SRCS_FUNC =		functions/ft_calloc.c 
+SRCS_FUNC =		functions/ft_calloc.c
+
+SRCS_PHILO =	philo.c
 
 # String manipulation magic
 SRC		:= $(notdir $(SRCS))
