@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   fork_add_back.c                                    :+:    :+:            */
+/*   ft_sleep.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/03/06 15:12:33 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/02 15:26:10 by rkieboom      ########   odam.nl         */
+/*   Created: 2022/04/02 15:17:03 by rkieboom      #+#    #+#                 */
+/*   Updated: 2022/04/02 16:31:43 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "forks.h"
+#include "philo.h"
 
-void	fork_add_back(t_forks **alst, t_forks *new)
+void	ft_sleep(t_thread *v)
 {
-	t_forks	*nlist;
+	int	timestamp[2];
 
-	if (!alst)
-		return ;
-	else if (*alst)
+	timestamp[0] = get_time();
+	timestamp[1] = get_time();
+	printf("%lims %i is %ssleeping%s\n", \
+	get_time() - v->first_timestamp, v->id, KRED, KWHT);
+	while (timestamp[0] - timestamp[1] < v->values->time_to_sleep)
 	{
-		nlist = *alst;
-		nlist = fork_last(*alst);
-		nlist->right = new;
-		new->left = nlist;
+		timestamp[0] = get_time();
+		if (philo_died(v))
+			break ;
+		usleep(1000);
 	}
-	else
-		fork_add_front(alst, new);
 }

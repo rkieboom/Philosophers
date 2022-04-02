@@ -6,23 +6,23 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/06 13:39:38 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/03/31 15:30:51 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/02 15:26:31 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FORKS_H
-#define FORKS_H
+# define FORKS_H
 
-#include <unistd.h>
-#include <pthread.h>
+# include <unistd.h>
+# include <pthread.h>
 
-typedef struct	s_forks
+typedef struct s_forks
 {
 	struct s_forks	*left;
 	struct s_forks	*right;
 	int				in_use;
 	int				last;
-	pthread_mutex_t mutex;
+	pthread_mutex_t	mutex;
 }					t_forks;
 
 t_forks		*fork_create(void);

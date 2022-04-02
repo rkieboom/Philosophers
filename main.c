@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/03 14:42:23 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/02 14:36:09 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/02 17:42:50 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int main(int argc, char **argv)
 		else
 			fork_add_back(&forks, fork_create());
 	}
-
 	t_forks	*temp = forks;
 	t_thread *th = calloc(args->number_of_philosophers, sizeof(t_thread));
 	if (!th)
@@ -72,8 +71,6 @@ int main(int argc, char **argv)
 	pthread_create(&pthread_id[args->number_of_philosophers], 0, &monitoring_thread, th);
 	for (int i = 0; i < args->number_of_philosophers + 1; i++)
 		pthread_join(pthread_id[i], 0);
-	// printf("RET = %i. has died!\n", *ret);\
-	// exit(EXIT_SUCCESS);
 	temp = forks;
 	for (int i = 0; i < args->number_of_philosophers; i++)
 	{

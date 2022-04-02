@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   fork_add_back.c                                    :+:    :+:            */
+/*   philo_died.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/03/06 15:12:33 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/02 15:26:10 by rkieboom      ########   odam.nl         */
+/*   Created: 2022/04/02 16:30:30 by rkieboom      #+#    #+#                 */
+/*   Updated: 2022/04/02 16:32:13 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "forks.h"
+#include "philo.h"
 
-void	fork_add_back(t_forks **alst, t_forks *new)
+int	philo_died(t_thread *v)
 {
-	t_forks	*nlist;
-
-	if (!alst)
-		return ;
-	else if (*alst)
-	{
-		nlist = *alst;
-		nlist = fork_last(*alst);
-		nlist->right = new;
-		new->left = nlist;
-	}
-	else
-		fork_add_front(alst, new);
+	if (*(v->start) == 0)
+		return (1);
+	return (0);
 }
