@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/06 13:39:47 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/03/31 16:16:57 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/02 14:36:16 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,20 @@ typedef struct	s_args {
 	long		time_to_sleep;
 	int			number_of_times_each_philosopher_must_eat;
 }				t_args;
-
 typedef struct	s_thread
 {
-	pthread_t		*pthread_id;
 	int				id;
 	t_args			*values;
 	t_forks			*forks;
 	long			first_timestamp;
 	long			timestamp_since_eaten;
 	int				hungry;
-	int				stop;
+	int				ready;
+	int				*start;
 }				t_thread;
 
 void	*philosophers(void *args);
+void	*monitoring_thread(void *args);
+long	get_time(void);
 
 #endif

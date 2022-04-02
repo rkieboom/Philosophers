@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   fork_last.c                                        :+:    :+:            */
+/*   get_time.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/03/06 15:14:57 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/02 13:12:05 by rkieboom      ########   odam.nl         */
+/*   Created: 2022/04/02 11:59:08 by rkieboom      #+#    #+#                 */
+/*   Updated: 2022/04/02 11:59:29 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "forks.h"
+#include <sys/time.h>
 
-t_forks	*fork_last(t_forks *lst)
+long	get_time(void)
 {
-	if (!lst)
-		return (NULL);
-	while (lst->right != NULL)
-	{
-		if (lst->last == 1)
-			return (lst);
-		lst = lst->right;
-	}
-	return (lst);
+	struct timeval	tp;
+	long			milliseconds;
+
+	gettimeofday(&tp, NULL);
+	milliseconds = tp.tv_sec * 1000;
+	milliseconds += tp.tv_usec / 1000;
+	return (milliseconds);
 }
