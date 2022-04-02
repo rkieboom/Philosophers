@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/06 13:39:47 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/02 19:38:19 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/02 21:13:45 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_thread
 	int				hungry;
 	int				ready;
 	int				*start;
+	int				eat_count;
 }				t_thread;
 
 void		*philosophers(void *args);

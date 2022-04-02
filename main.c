@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/03 14:42:23 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/02 19:57:21 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/02 21:17:06 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ static t_thread	*init_fork_values(t_forks *forks, t_args *args, int *start)
 		forks = forks->right;
 		i++;
 	}
-	th[0].forks->left = fork_last(th[0].forks);
+	if (args->number_of_philosophers != 1)
+		th[0].forks->left = fork_last(th[0].forks);
+	else
+		th[0].forks->last = 1;
 	return (th);
 }
 
@@ -49,7 +52,7 @@ int main(int argc, char **argv)
 	t_thread	*th;
 	pthread_t	*pthread_id;
 
-	if (argc < 4)
+	if (argc < 5 || argc > 6)
 		return (ft_write_error("Usage ./philo [number_of_philosophers] \
 [time_to_die] [time_to_eat] [time_to_sleep]\n", 1));
 	start = calloc(1, sizeof(int));
@@ -84,7 +87,6 @@ int main(int argc, char **argv)
 		ft_free_all(th, pthread_id);
 		return (1);
 	}
-	printf("All threads closed expect for main thread!\n");
 	ft_free_all(th, pthread_id);
 	return 0;
 }
