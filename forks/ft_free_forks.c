@@ -6,13 +6,13 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/02 19:09:43 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/02 20:02:34 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/03 11:59:32 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
 
-void	ft_free_forks(t_forks *forks, t_args *args)
+void	*ft_free_forks(t_forks *forks, t_args *args)
 {
 	t_forks	*temp;
 
@@ -30,4 +30,5 @@ void	ft_free_forks(t_forks *forks, t_args *args)
 		}
 	}
 	free(args);
+	return (0);
 }

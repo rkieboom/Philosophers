@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/02 18:41:00 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/02 19:49:04 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/03 12:14:29 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,7 @@ t_args	*read_and_lexer(t_args *args, char **argv)
 		free(args);
 		return (0);
 	}
+	if (!argv[5])
+		args->number_of_times_each_philosopher_must_eat = -1;
 	return (args);
 }

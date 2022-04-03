@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/02 18:45:23 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/02 19:41:57 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/03 11:57:45 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,7 @@ t_forks	*init_forks(t_forks *forks, t_args *args, int i)
 		{
 			temp = fork_create();
 			if (!temp)
-			{
-				ft_free_forks(forks, args);
-				return (0);
-			}
+				return (ft_free_forks(forks, args));
 			if (i + 1 == args->number_of_philosophers)
 				fork_add_back_last(&forks, temp);
 			else

@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/06 13:39:47 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/02 21:13:45 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/03 12:01:47 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ void		*philosophers(void *args);
 void		*monitoring_thread(void *args);
 long		get_time(void);
 
-int		create_threads(pthread_t *pthread_id, t_thread *th, t_args *args);
-int		join_threads(pthread_t *pthread_id, t_args *args);
-int		ft_free_all(t_thread *th, pthread_t *pthread_id);
+int			create_threads(pthread_t *pthread_id, t_thread *th, t_args *args);
+int			join_threads(pthread_t *pthread_id, t_args *args);
+int			ft_free_all(t_thread *th, pthread_t *pthread_id);
 
 t_args		*read_and_lexer(t_args *args, char **argv);
 t_forks		*init_forks(t_forks *forks, t_args *args, int i);
-void		ft_free_forks(t_forks *forks, t_args *args);
+void		*ft_free_forks(t_forks *forks, t_args *args);
 
 size_t		ft_strlen(const char *str);
 int			ft_atoi(const char *str);

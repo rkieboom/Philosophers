@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/03 14:42:23 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/02 21:17:06 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/03 12:40:29 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 static t_thread	*init_fork_values(t_forks *forks, t_args *args, int *start)
 {
-	int	i;
+	int			i;
 	t_thread	*th;
 
 	i = 0;
@@ -44,13 +44,35 @@ static t_thread	*init_fork_values(t_forks *forks, t_args *args, int *start)
 	return (th);
 }
 
-int main(int argc, char **argv)
+static int	run(pthread_t *pthread_id, t_thread *th, t_args *args)
 {
-	int	*start;
-	t_args	*args;
-	t_forks	*forks;
+	pthread_id = malloc(sizeof(pthread_t) * (args->number_of_philosophers + 1));
+	if (!pthread_id)
+	{
+		free(th->start);
+		ft_free_forks(th[0].forks, args);
+		free(th);
+	}
+	if (create_threads(pthread_id, th, args))
+	{
+		ft_free_all(th, pthread_id);
+		return (1);
+	}
+	if (join_threads(pthread_id, args))
+	{
+		ft_free_all(th, pthread_id);
+		return (1);
+	}
+	ft_free_all(th, pthread_id);
+	return (0);
+}
+
+int	main(int argc, char **argv)
+{
+	int			*start;
+	t_args		*args;
+	t_forks		*forks;
 	t_thread	*th;
-	pthread_t	*pthread_id;
 
 	if (argc < 5 || argc > 6)
 		return (ft_write_error("Usage ./philo [number_of_philosophers] \
@@ -70,23 +92,7 @@ int main(int argc, char **argv)
 		free(start);
 		ft_free_forks(forks, args);
 	}
-	pthread_id = malloc(sizeof(pthread_t) * (args->number_of_philosophers + 1)); //+1 voor monitor thread
-	if (!pthread_id)
-	{
-		free(start);
-		ft_free_forks(forks, args);
-		free(th);
-	}
-	if (create_threads(pthread_id, th, args))
-	{
-		ft_free_all(th, pthread_id);
+	if (run(0, th, args))
 		return (1);
-	}
-	if (join_threads(pthread_id, args))
-	{
-		ft_free_all(th, pthread_id);
-		return (1);
-	}
-	ft_free_all(th, pthread_id);
-	return 0;
+	return (0);
 }

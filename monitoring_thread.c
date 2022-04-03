@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/01 20:56:00 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/02 21:38:30 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/03 12:44:25 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,24 +48,19 @@ int	threads_done(t_thread *v)
 	}
 	if (i == v->values->number_of_philosophers)
 		return (1);
+	return (0);
 }
 
-void	*monitoring_thread(void *args)
+static int	loop(t_thread *v, int i)
 {
-	t_thread	*v;
-	int			i;
-
-	i = 0;
-	v = (t_thread *)args;
-	if (threads_ready(v))
-		*(v->start) = 1;
 	while (1)
 	{
 		while (i < v->values->number_of_philosophers)
-		{	
+		{
 			if (get_time() - v[i].timestamp_since_eaten > \
 			v[i].values->time_to_die && v[i].timestamp_since_eaten != 0 && \
-			v[i].eat_count != v[i].values->number_of_times_each_philosopher_must_eat) /////////hierrrrr beziggg
+			v[i].eat_count != \
+			v[i].values->number_of_times_each_philosopher_must_eat)
 			{
 				*(v->start) = 0;
 				usleep(3000);
@@ -80,4 +75,15 @@ void	*monitoring_thread(void *args)
 		}
 		i = 0;
 	}
+}
+
+void	*monitoring_thread(void *args)
+{
+	t_thread	*v;
+
+	v = (t_thread *)args;
+	if (threads_ready(v))
+		*(v->start) = 1;
+	loop(v, 0);
+	return (0);
 }
