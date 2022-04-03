@@ -6,11 +6,12 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/02 11:59:08 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/02 15:26:53 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/03 13:23:46 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/time.h>
+#include <stddef.h>
 
 long	get_time(void)
 {
