@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/02 15:17:02 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/02 21:05:19 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/06 21:31:13 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@ static int	in_hungry_state2(t_thread *v, long first_timestamp)
 {
 	if (v->forks->in_use && !v->forks->right->in_use)
 	{
-		pthread_mutex_lock(&v->forks->right->mutex);
+		pthread_mutex_lock(&v->forks->right->fork);
 		printf("%lims %i has taken %sright fork%s\n", get_time() \
 		- first_timestamp, v->id, KBLU, KWHT);
-		pthread_mutex_lock(&v->forks->mutex);
+		pthread_mutex_lock(&v->forks->fork);
 		printf("%lims %i has taken %sleft fork%s\n", get_time() \
 		- first_timestamp, v->id, KBLU, KWHT);
 	}
 	else if (!v->forks->in_use && v->forks->right->in_use)
 	{
-		pthread_mutex_lock(&v->forks->right->mutex);
+		pthread_mutex_lock(&v->forks->right->fork);
 		printf("%lims %i has taken %sright fork%s\n", get_time() \
 		- first_timestamp, v->id, KBLU, KWHT);
-		pthread_mutex_lock(&v->forks->mutex);
+		pthread_mutex_lock(&v->forks->fork);
 		printf("%lims %i has taken %sleft fork%s\n", get_time() \
 		- first_timestamp, v->id, KBLU, KWHT);
 	}
@@ -45,10 +45,10 @@ static int	in_hungry_state(t_thread *v, long first_timestamp)
 		return (1);
 	else
 	{
-		pthread_mutex_lock(&v->forks->right->mutex);
+		pthread_mutex_lock(&v->forks->right->fork);
 		printf("%lims %i has taken %sright fork%s\n", get_time() \
 		- first_timestamp, v->id, KBLU, KWHT);
-		pthread_mutex_lock(&v->forks->mutex);
+		pthread_mutex_lock(&v->forks->fork);
 		printf("%lims %i has taken %sleft fork%s\n", get_time() \
 		- first_timestamp, v->id, KBLU, KWHT);
 	}
@@ -59,19 +59,19 @@ static void	lock_forks(t_thread *v, long first_timestamp)
 {
 	if (v->id % 2)
 	{
-		pthread_mutex_lock(&v->forks->mutex);
+		pthread_mutex_lock(&v->forks->fork);
 		printf("%lims %i has taken %sleft fork%s\n", get_time() \
 		- first_timestamp, v->id, KBLU, KWHT);
-		pthread_mutex_lock(&v->forks->right->mutex);
+		pthread_mutex_lock(&v->forks->right->fork);
 		printf("%lims %i has taken %sright fork%s\n", get_time() \
 		- first_timestamp, v->id, KBLU, KWHT);
 	}
 	else
 	{
-		pthread_mutex_lock(&v->forks->right->mutex);
+		pthread_mutex_lock(&v->forks->right->fork);
 		printf("%lims %i has taken %sright fork%s\n", get_time() \
 		- first_timestamp, v->id, KBLU, KWHT);
-		pthread_mutex_lock(&v->forks->mutex);
+		pthread_mutex_lock(&v->forks->fork);
 		printf("%lims %i has taken %sleft fork%s\n", get_time() \
 		- first_timestamp, v->id, KBLU, KWHT);
 	}

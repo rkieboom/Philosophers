@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/02 15:17:05 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/02 16:58:48 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/06 21:31:49 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ void	ft_eat(t_thread *v, long *timestamp_since_eaten)
 	v->forks->right->in_use = 0;
 	if (v->id % 2)
 	{
-		pthread_mutex_unlock(&v->forks->mutex);
-		pthread_mutex_unlock(&v->forks->right->mutex);
+		pthread_mutex_unlock(&v->forks->fork);
+		pthread_mutex_unlock(&v->forks->right->fork);
 	}
 	else
 	{
-		pthread_mutex_unlock(&v->forks->right->mutex);
-		pthread_mutex_unlock(&v->forks->mutex);
+		pthread_mutex_unlock(&v->forks->right->fork);
+		pthread_mutex_unlock(&v->forks->fork);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/03 14:42:23 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/06 15:48:55 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/06 21:24:53 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ static t_thread	*init_fork_values(t_forks *forks, t_args *args, int *start)
 		th[i].id = i + 1;
 		th[i].forks = forks;
 		th[i].values = args;
-		th[i].start = start;
-		pthread_mutex_init(&forks->mutex, 0);
+		pthread_mutex_init(&th[i].mutex, 0);
+		pthread_mutex_init(&forks->fork, 0);
+		pthread_mutex_init(&forks->value, 0);
 		forks = forks->right;
 		i++;
 	}
@@ -46,7 +47,7 @@ static int	run(pthread_t *pthread_id, t_thread *th, t_args *args)
 	pthread_id = malloc(sizeof(pthread_t) * (args->number_of_philosophers + 1));
 	if (!pthread_id)
 	{
-		free(th->start);
+		// free(th->start);
 		ft_free_forks(th[0].forks, args);
 		free(th);
 	}

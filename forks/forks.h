@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/06 13:39:38 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/02 18:49:47 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/06 21:15:41 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ typedef struct s_forks
 	struct s_forks	*right;
 	int				in_use;
 	int				last;
-	pthread_mutex_t	mutex;
+	pthread_mutex_t	fork;
+	pthread_mutex_t	value;
 }					t_forks;
 
 t_forks		*fork_create(void);
