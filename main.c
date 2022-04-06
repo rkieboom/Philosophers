@@ -6,15 +6,12 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/03 14:42:23 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/03 12:40:29 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/06 15:48:55 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/time.h>//gettimeofday
-#include <stdio.h>//printf
-#include <unistd.h>//sleep
-#include <stdlib.h>
-#include <pthread.h>
+#include <stdio.h>
+#include <unistd.h>
 
 #include "header.h"
 

@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/06 13:39:47 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/03 12:01:47 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/06 15:48:35 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "forks/forks.h"
 # include <stdlib.h>
+# include <pthread.h>
 
 typedef struct s_args
 {
