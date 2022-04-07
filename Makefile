@@ -6,7 +6,7 @@
 #    By: rkieboom <rkieboom@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/03 16:05:06 by rkieboom      #+#    #+#                  #
-#    Updated: 2022/04/06 21:55:13 by rkieboom      ########   odam.nl          #
+#    Updated: 2022/04/06 22:40:13 by rkieboom      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ NAME		= philo
 
 # Compiler and compiling flags
 CC	= gcc
-CFLAGS	= -pthread -g3 -fsanitize=thread
+CFLAGS	= -pthread
 
 # Debug, use with`make DEBUG=1`
 ifeq ($(DEBUG),1)

@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/06 13:39:38 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/06 21:15:41 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/08 00:11:35 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 typedef struct s_forks
 {
+	int				id;
 	struct s_forks	*left;
 	struct s_forks	*right;
 	int				in_use;

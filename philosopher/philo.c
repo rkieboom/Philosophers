@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/31 14:54:14 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/06 21:56:54 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/06 22:42:16 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,12 @@ static void	waiting_to_start(t_thread *v)
 		pthread_mutex_unlock(&v->mutex);
 		usleep(3000);
 	}
-	if (!(v->id % 2))
-		usleep(v->values->time_to_eat * 1000);
+	pthread_mutex_lock(&v->mutex);
 	v->first_timestamp = get_time();
 	v->timestamp_since_eaten = v->first_timestamp;
+	pthread_mutex_unlock(&v->mutex);
+	if (!(v->id % 2))
+		usleep(v->values->time_to_eat * 1000);
 }
 
 static int	eaten_enough_times(t_thread *v)
@@ -43,9 +45,7 @@ static int	eaten_enough_times(t_thread *v)
 		return (0);
 	else if (v->eat_count == \
 	v->values->number_of_times_each_philosopher_must_eat)
-	{
 		return (1);
-	}
 	return (0);
 }
 
@@ -96,16 +96,14 @@ void	*philosophers(void *args)
 
 	v = (t_thread *)args;
 	waiting_to_start(v);
-	printf("%i. philo closing\n", v->id);
-	fflush(0);
-	// if (execptions(v))
-	// {
-	// 	while (1)
-	// 	{
-	// 		v->eat_count++;
-	// 		if (loop(v))
-	// 			break ;
-	// 	}
-	// }
+	if (execptions(v))
+	{
+		while (1)
+		{
+			v->eat_count++;
+			if (loop(v))
+				break ;
+		}
+	}
 	return (0);
 }

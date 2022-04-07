@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/01 20:56:00 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/06 21:52:59 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/08 00:35:56 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void	threads_ready(t_thread *v)
+void	threads_start(t_thread *v)
 {
 	int	i;
 
@@ -40,40 +40,40 @@ void	threads_ready(t_thread *v)
 	}
 }
 
-// int	threads_done(t_thread *v)
-// {
-// 	int	i;
+void	stop_threads(t_thread *v)
+{
+	int	i;
 
-// 	i = 0;
-// 	while (i < v->values->number_of_philosophers)
-// 	{
-// 		if (v[i].ready == 1)
-// 			break ;
-// 		i++;
-// 	}
-// 	if (i == v->values->number_of_philosophers)
-// 		return (1);
-// 	return (0);
-// }
+	i = 0;
+	while (i < v->values->number_of_philosophers)
+	{
+		pthread_mutex_lock(&v[i].mutex);
+		v[i].died = 1;
+		pthread_mutex_unlock(&v[i].mutex);
+		i++;
+	}
+}
 
-static int	loop(t_thread *v, int i)
+static void	loop(t_thread *v, int i)
 {
 	while (1)
 	{
 		while (i < v->values->number_of_philosophers)
 		{
+			pthread_mutex_lock(&v[i].mutex);
 			if (get_time() - v[i].timestamp_since_eaten > \
 			v[i].values->time_to_die && v[i].timestamp_since_eaten != 0 && \
 			v[i].eat_count != \
 			v[i].values->number_of_times_each_philosopher_must_eat)
 			{
+				pthread_mutex_unlock(&v[i].mutex);
+				stop_threads(v);
 				usleep(3000);
 				printf("%lims %i died!\n", get_time() \
 				- v[i].first_timestamp, i + 1);
-				return (0);
+				return ;
 			}
-			// if (threads_done(v))
-			// 	return (0);
+			pthread_mutex_unlock(&v[i].mutex);
 			usleep(1000);
 			i++;
 		}
@@ -88,7 +88,7 @@ void	*monitoring_thread(void *args)
 
 	v = (t_thread *)args;
 	i = 0;
-	threads_ready(v);
+	threads_start(v);
 	while (i < v->values->number_of_philosophers)
 	{
 		pthread_mutex_lock(&v[i].mutex);
@@ -96,8 +96,8 @@ void	*monitoring_thread(void *args)
 		pthread_mutex_unlock(&v[i].mutex);
 		i++;
 	}
-	sleep(3);
-	printf("monitoring thread closing...\n");
+	printf("monitoring done!\n");
+	fflush(0);
 	// loop(v, 0);
 	return (0);
 }
