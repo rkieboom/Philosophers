@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/09 01:21:21 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/09 14:10:11 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/09 18:25:14 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	join_threads(pthread_t *threads, int number_of_philos)
 			ft_write_error("Error, joining threads failed!\n", 1);
 		i++;
 	}
+	free(threads);
 	return (0);
 }
 
@@ -43,7 +44,7 @@ int	create_and_start_threads(t_list *v)
 			return (ft_write_error("Error, creating thread failed!\n", 1));
 		i++;
 	}
-	if (pthread_create(&threads[v->rules->number_of_philos], 0, &monitoring_thread, 0) != 0)
+	if (pthread_create(&threads[v->rules->number_of_philos], 0, &monitoring_thread, v->ph) != 0)
 		return (ft_write_error("Error, creating thread failed!\n", 1));
 	if (join_threads(threads, v->rules->number_of_philos))
 	{

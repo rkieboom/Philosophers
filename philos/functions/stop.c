@@ -1,37 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   forks.h                                            :+:    :+:            */
+/*   stop.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/04/08 17:10:14 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/09 15:01:38 by rkieboom      ########   odam.nl         */
+/*   Created: 2022/04/09 14:49:53 by rkieboom      #+#    #+#                 */
+/*   Updated: 2022/04/09 14:55:30 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FORKS_H
-# define FORKS_H
+#include "../philo.h"
 
-#include <stdlib.h>
-
-#include "../header.h"
-#include <pthread.h>
-
-typedef struct s_forks
+int	ft_stop(t_philo *v)
 {
-	int		id;
-	int		in_use;
-	int		last;
-	
-	struct s_forks	*next;
-	pthread_mutex_t fork;
-	pthread_mutex_t value_m;
-}				t_forks;
-
-t_forks		*fork_create(void);
-int			fork_add_back(t_forks *fork, int last);
-t_forks		*fork_last(t_forks *fork);
-void		freeforks(t_forks *forks);
-
-#endif
+	pthread_mutex_lock(&v->stop_m);
+	if (v->stop == 1)
+	{
+		pthread_mutex_unlock(&v->stop_m);
+		return (1);
+	}
+	pthread_mutex_unlock(&v->stop_m);
+	return (0);
+}

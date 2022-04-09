@@ -6,7 +6,7 @@
 #    By: rkieboom <rkieboom@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/03 16:05:06 by rkieboom      #+#    #+#                  #
-#    Updated: 2022/04/09 14:01:24 by rkieboom      ########   odam.nl          #
+#    Updated: 2022/04/09 15:13:43 by rkieboom      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,11 @@ SRCS_FUNCTIONS =	functions/ft_calloc.c functions/get_time.c functions/ft_strlen.
 SRCS_FORKS = 		forks/init_forks.c forks/fork_create.c forks/fork_last.c \
 					forks/fork_add_back.c
 
-SRCS_PHILO = 		philos/philo.c philos/setup_philos.c
+SRCS_PHILO = 		philos/philo.c philos/setup_philos.c $(SRCS_PHILO_FUNC)
+
+SRCS_PHILO_FUNC = 	philos/functions/eat.c philos/functions/ft_eaten_enough.c \
+					philos/functions/sleep.c philos/functions/stop.c \
+					philos/functions/take_forks.c philos/functions/think.c
 
 SRCS_THREADS = 		threads/create_and_start_threads.c
 

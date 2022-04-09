@@ -2,6 +2,7 @@
 	"files.associations": {
 		"forks.h": "c",
 		"functions.h": "c",
-		"header.h": "c"
+		"header.h": "c",
+		"locale": "c"
 	}
 }

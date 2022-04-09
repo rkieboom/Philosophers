@@ -1,37 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   forks.h                                            :+:    :+:            */
+/*   ft_eaten_enough.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/04/08 17:10:14 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/09 15:01:38 by rkieboom      ########   odam.nl         */
+/*   Created: 2022/04/09 14:57:08 by rkieboom      #+#    #+#                 */
+/*   Updated: 2022/04/09 14:59:09 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FORKS_H
-# define FORKS_H
+#include "../philo.h"
 
-#include <stdlib.h>
-
-#include "../header.h"
-#include <pthread.h>
-
-typedef struct s_forks
+int	ft_eaten_enough(t_philo *v)
 {
-	int		id;
-	int		in_use;
-	int		last;
-	
-	struct s_forks	*next;
-	pthread_mutex_t fork;
-	pthread_mutex_t value_m;
-}				t_forks;
-
-t_forks		*fork_create(void);
-int			fork_add_back(t_forks *fork, int last);
-t_forks		*fork_last(t_forks *fork);
-void		freeforks(t_forks *forks);
-
-#endif
+	pthread_mutex_lock(&v->eat_count_m);
+	if (v->eat_count == v->rules->time_to_eat)
+	{
+		pthread_mutex_unlock(&v->eat_count_m);
+		return (1);
+	}
+	pthread_mutex_unlock(&v->eat_count_m);
+	return (0);
+}
