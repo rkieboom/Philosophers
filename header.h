@@ -5,57 +5,43 @@
 /*                                                     +:+                    */
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/03/06 13:39:47 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/06 21:28:10 by rkieboom      ########   odam.nl         */
+/*   Created: 2022/04/08 16:35:10 by rkieboom      #+#    #+#                 */
+/*   Updated: 2022/04/09 14:07:48 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HEADER_H
 # define HEADER_H
 
-# include "forks/forks.h"
+# include <stdio.h>
 # include <stdlib.h>
-# include <pthread.h>
+# include "functions/functions.h"
+# include "forks/forks.h"
+# include "philos/philo.h"
 
-typedef struct s_args
+typedef struct s_rules
 {
-	int			number_of_philosophers;
-	long		time_to_die;
-	long		time_to_eat;
-	long		time_to_sleep;
-	int			number_of_times_each_philosopher_must_eat;
-}				t_args;
-typedef struct s_thread
+	int			number_of_philos;
+	int			time_to_die;
+	int			time_to_eat;
+	int			time_to_sleep;
+	int			amount_of_times_to_eat;
+}				t_rules;
+
+typedef struct s_list
 {
-	int				id;
-	t_args			*values;
-	t_forks			*forks;
-	long			first_timestamp;
-	long			timestamp_since_eaten;
-	int				hungry;
-	int				eat_count;
-	int				ready;
-	int				start;
-	int				died;
-	pthread_mutex_t	mutex;
-}				t_thread;
+	t_rules			*rules;
+	struct s_forks	*forks;
+	struct s_philo	*ph;
+}				t_list;
 
-void		*philosophers(void *args);
-void		*monitoring_thread(void *args);
-long		get_time(void);
+int		lexer(int argc, char **argv);
+int		parse(t_list *v, char **argv);
 
-int			create_threads(pthread_t *pthread_id, t_thread *th, t_args *args);
-int			join_threads(pthread_t *pthread_id, t_args *args);
-int			ft_free_all(t_thread *th, pthread_t *pthread_id);
+int		init_forks(t_list *v, int i);
 
-t_args		*read_and_lexer(t_args *args, char **argv);
-t_forks		*init_forks(t_forks *forks, t_args *args, int i);
-void		*ft_free_forks(t_forks *forks, t_args *args);
+int		create_and_start_threads(t_list *v);
 
-size_t		ft_strlen(const char *str);
-int			ft_atoi(const char *str);
-long long	ft_atoi_l(const char *str);
-int			ft_isdigit(int c);
-int			ft_write_error(char *msg, int ret);
+void	*monitoring_thread(void *arg);
 
 #endif

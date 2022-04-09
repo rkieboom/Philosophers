@@ -5,26 +5,33 @@
 /*                                                     +:+                    */
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/03/06 15:12:33 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/02 15:26:10 by rkieboom      ########   odam.nl         */
+/*   Created: 2022/04/08 17:22:43 by rkieboom      #+#    #+#                 */
+/*   Updated: 2022/04/08 18:34:52 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "forks.h"
 
-void	fork_add_back(t_forks **alst, t_forks *new)
+int		fork_add_back(t_forks *forks, int last)
 {
-	t_forks	*nlist;
+	t_forks *temp;
 
-	if (!alst)
-		return ;
-	else if (*alst)
+	temp = fork_last(forks);
+	temp->next = ft_calloc(1, sizeof(t_forks));
+	if (!temp->next)
 	{
-		nlist = *alst;
-		nlist = fork_last(*alst);
-		nlist->right = new;
-		new->left = nlist;
+		temp = forks;
+		while (forks)
+		{
+			free(temp);
+			temp = temp->next;
+		}
+		return (ft_write_error("Malloc failed!\n", 1));
 	}
-	else
-		fork_add_front(alst, new);
+	if (last == 1)
+	{
+		temp->next->last = 1;
+		temp->next->next = forks;
+	}
+	return (0);
 }

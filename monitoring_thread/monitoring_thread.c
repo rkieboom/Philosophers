@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_sleep.c                                         :+:    :+:            */
+/*   monitoring_thread.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/04/02 15:17:03 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/06 21:29:29 by rkieboom      ########   odam.nl         */
+/*   Created: 2022/04/09 13:40:26 by rkieboom      #+#    #+#                 */
+/*   Updated: 2022/04/09 14:00:39 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../header.h"
 
-void	ft_sleep(t_thread *v)
+void	*monitoring_thread(void *arg)
 {
-	int	timestamp[2];
-
-	timestamp[0] = get_time();
-	timestamp[1] = get_time();
-	printf("%lims %i is %ssleeping%s\n", \
-	get_time() - v->first_timestamp, v->id, KRED, KWHT);
-	while (timestamp[0] - timestamp[1] < v->values->time_to_sleep)
-	{
-		timestamp[0] = get_time();
-		if (philo_died(v))
-			break ;
-		usleep(1000);
-	}
+	printf("Monitoring thread ready!\n");
+	return (0);
 }

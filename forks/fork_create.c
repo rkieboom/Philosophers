@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_free_all.c                                      :+:    :+:            */
+/*   forks_create.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/04/02 19:15:16 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/06 21:19:04 by rkieboom      ########   odam.nl         */
+/*   Created: 2022/04/08 17:18:39 by rkieboom      #+#    #+#                 */
+/*   Updated: 2022/04/08 17:22:09 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header.h"
+#include "forks.h"
 
-int	ft_free_all(t_thread *th, pthread_t *pthread_id)
+t_forks	*fork_create()
 {
-	// free(th->start);
-	ft_free_forks(th->forks, th->values);
-	free(pthread_id);
-	free(th);
-	return (1);
+	t_forks *temp;
+
+	temp = ft_calloc(1, sizeof(t_forks));
+	if (!temp)
+	{
+		ft_write_error("Malloc failed!\n", 1);
+		return (0);
+	}
+	return (temp);
 }

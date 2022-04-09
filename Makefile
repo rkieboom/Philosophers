@@ -6,7 +6,7 @@
 #    By: rkieboom <rkieboom@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/03 16:05:06 by rkieboom      #+#    #+#                  #
-#    Updated: 2022/04/06 22:40:13 by rkieboom      ########   odam.nl          #
+#    Updated: 2022/04/09 14:01:24 by rkieboom      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,28 +23,32 @@ CFLAGS	= -pthread
 ifeq ($(DEBUG),1)
 CFLAGS	+= -g3
 endif
+ifeq ($(DEBUG),2)
+CFLAGS	+= -g3 -fsanitize=address
+endif
+ifeq ($(DEBUG),3)
+CFLAGS	+= -g3 -fsanitize=thread
+endif
 
 # Folder name
 SRCDIR	= ./
 OBJDIR	= bin/
 
-SRCS =	main.c $(SRCS_FORKS) $(SRCS_FUNC) $(SRCS_PHILO) $(SRCS_MONITORING) $(SRCS_THREADS)
+SRCS =	main.c $(SRCS_FUNCTIONS) $(SRCS_FORKS) $(SRCS_PHILO) $(SRCS_THREADS) $(SRCS_MONITORING_THREAD)
 
-SRCS_FORKS =	forks/create_fork.c forks/fork_add_back_last.c forks/fork_add_back.c \
-				forks/fork_add_front.c forks/fork_last.c forks/ft_free_forks.c \
-				forks/init_forks.c
+SRCS_FUNCTIONS =	functions/ft_calloc.c functions/get_time.c functions/ft_strlen.c \
+					functions/ft_atoi.c functions/ft_atoi_l.c functions/ft_isdigit.c \
+					functions/ft_write_error.c functions/lexer.c functions/parse.c \
+					functions/ft_bzero.c
 
-SRCS_FUNC =		functions/ft_calloc.c functions/get_time.c functions/ft_strlen.c \
-				functions/ft_atoi.c functions/ft_atoi_l.c functions/ft_isdigit.c \
-				functions/ft_write_error.c functions/read_and_lexer.c \
-				functions/ft_free_all.c
+SRCS_FORKS = 		forks/init_forks.c forks/fork_create.c forks/fork_last.c \
+					forks/fork_add_back.c
 
-SRCS_PHILO =	philosopher/philo.c philosopher/ft_think.c philosopher/ft_take_forks.c \
-				philosopher/ft_sleep.c philosopher/ft_eat.c philosopher/philo_died.c
+SRCS_PHILO = 		philos/philo.c philos/setup_philos.c
 
-SRCS_MONITORING =	monitoring_thread.c
+SRCS_THREADS = 		threads/create_and_start_threads.c
 
-SRCS_THREADS =	threads/create_threads.c threads/join_threads.c
+SRCS_MONITORING_THREAD =	monitoring_thread/monitoring_thread.c
 
 # String manipulation magic
 SRC		:= $(notdir $(SRCS))
@@ -95,7 +99,7 @@ re : fclean all
 # This runs the program
 run : $(NAME)
 	@printf "$(CY)>>> Running $(NAME)$(RC)\n"
-	./$(NAME)
+	./$(NAME) 8 800 200 200
 
 # This specifies the rules that does not correspond to any filename
 .PHONY	= all run clean fclean re bonus

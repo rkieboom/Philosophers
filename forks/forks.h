@@ -5,34 +5,33 @@
 /*                                                     +:+                    */
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/03/06 13:39:38 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/08 00:11:35 by rkieboom      ########   odam.nl         */
+/*   Created: 2022/04/08 17:10:14 by rkieboom      #+#    #+#                 */
+/*   Updated: 2022/04/09 13:53:42 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FORKS_H
 # define FORKS_H
 
-# include <unistd.h>
-# include <pthread.h>
+#include <stdlib.h>
+
+#include "../header.h"
+#include <pthread.h>
 
 typedef struct s_forks
 {
-	int				id;
-	struct s_forks	*left;
-	struct s_forks	*right;
-	int				in_use;
-	int				last;
-	pthread_mutex_t	fork;
-	pthread_mutex_t	value;
-}					t_forks;
+	int		id;
+	int		in_use;
+	int		last;
+	
+	struct s_forks	*next;
+	pthread_mutex_t fork;
+	pthread_mutex_t value;
+}				t_forks;
 
 t_forks		*fork_create(void);
-void		fork_add_back(t_forks **alst, t_forks *new);
-void		fork_add_front(t_forks **alst, t_forks *new);
-void		fork_add_back_last(t_forks **alst, t_forks *new);
-t_forks		*fork_last(t_forks *lst);
-
-void		*ft_calloc(size_t count, size_t size);
+int			fork_add_back(t_forks *fork, int last);
+t_forks		*fork_last(t_forks *fork);
+void		freeforks(t_forks *forks);
 
 #endif

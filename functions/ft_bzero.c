@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   fork_add_front.c                                   :+:    :+:            */
+/*   ft_bzero.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/03/06 15:13:39 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/02 15:26:14 by rkieboom      ########   odam.nl         */
+/*   Created: 2019/11/02 13:19:16 by rkieboom      #+#    #+#                 */
+/*   Updated: 2022/04/09 13:52:17 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "forks.h"
+#include "functions.h"
 
-void	fork_add_front(t_forks **alst, t_forks *new)
+void	ft_bzero(void *s, size_t n)
 {
-	new->right = *alst;
-	*alst = new;
+	size_t	i;
+	char	*result;
+
+	result = s;
+	i = 0;
+	while (i < n)
+	{
+		result[i] = '\0';
+		i++;
+	}
 }

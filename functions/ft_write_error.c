@@ -6,11 +6,12 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/02 18:39:20 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/02 19:37:40 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/09 00:02:57 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header.h"
+#include <unistd.h>
+#include "functions.h"
 
 int	ft_write_error(char *msg, int ret)
 {

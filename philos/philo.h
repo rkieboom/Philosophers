@@ -1,25 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   philo_died.c                                       :+:    :+:            */
+/*   philo.h                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/04/02 16:30:30 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/06 21:29:04 by rkieboom      ########   odam.nl         */
+/*   Created: 2022/04/08 18:55:01 by rkieboom      #+#    #+#                 */
+/*   Updated: 2022/04/09 14:08:59 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#ifndef PHILO_H
+# define PHILO_H
 
-int	philo_died(t_thread *v)
+# include "../header.h"
+
+typedef struct s_time
 {
-	pthread_mutex_lock(&v->mutex);
-	if (v->died == 1)
-	{
-		pthread_mutex_unlock(&v->mutex);
-		return (1);
-	}
-	pthread_mutex_unlock(&v->mutex);
-	return (0);
-}
+	long			first_timestamp;
+	long			timestamp_since_eaten;
+}				t_time;
+
+typedef struct	s_philo
+{
+	int				id;
+	struct s_rules	*rules;
+	struct s_forks	*forks;
+	struct s_time	time;
+	int				eat_count;
+}				t_philo;
+
+typedef struct s_list t_list;
+
+void	*philo(void *);
+int		setup_philos(t_list *v);
+
+#endif

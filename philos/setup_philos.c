@@ -1,30 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   create_threads.c                                   :+:    :+:            */
+/*   setup_philos.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/04/02 19:12:02 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/03 12:01:28 by rkieboom      ########   odam.nl         */
+/*   Created: 2022/04/09 01:07:31 by rkieboom      #+#    #+#                 */
+/*   Updated: 2022/04/09 14:14:05 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
 
-int	create_threads(pthread_t *pthread_id, t_thread *th, t_args *args)
+int		setup_philos(t_list *v)
 {
-	int	i;
+	int		i;
+	t_philo	*ph;
+	t_forks	*temp;
 
 	i = 0;
-	while (i < args->number_of_philosophers)
+	temp = v->forks;
+	ph = ft_calloc(v->rules->number_of_philos, sizeof(t_philo));
+	if (!ph)
 	{
-		if (pthread_create(&pthread_id[i], 0, &philosophers, &th[i]) != 0)
-			return (ft_write_error("Error, creating thread failed!\n", 1));
+		free(v->rules);
+		freeforks(v->forks);
+		return (ft_write_error("Malloc failed!\n", 1));
+	}
+	while (i < v->rules->number_of_philos)
+	{
+		ph[i].id = i + 1;
+		ph[i].forks = temp;
+		temp = temp->next;
 		i++;
 	}
-	if (pthread_create(&pthread_id[args->number_of_philosophers], \
-	0, &monitoring_thread, th) != 0)
-		return (ft_write_error("Error, creating thread failed!\n", 1));
+	v->ph = ph;
 	return (0);
 }

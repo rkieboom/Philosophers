@@ -1,35 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_free_forks.c                                    :+:    :+:            */
+/*   philo.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/04/02 19:09:43 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/06 21:16:01 by rkieboom      ########   odam.nl         */
+/*   Created: 2022/04/08 23:56:30 by rkieboom      #+#    #+#                 */
+/*   Updated: 2022/04/09 13:58:06 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header.h"
+#include "philo.h"
 
-void	*ft_free_forks(t_forks *forks, t_args *args)
+void	*philo(void *args)
 {
-	t_forks	*temp;
+	t_philo *v;
 
-	temp = forks;
-	while (temp)
-	{
-		forks = forks->right;
-		pthread_mutex_destroy(&temp->fork);
-		pthread_mutex_destroy(&temp->value);
-		free(temp);
-		temp = forks;
-		if (forks && forks->last)
-		{
-			free(forks);
-			break ;
-		}
-	}
-	free(args);
+	v = (t_philo *)args;
+	printf("%i. ready!\n", v->id);
 	return (0);
 }
