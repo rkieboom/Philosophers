@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/08 18:55:01 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/09 18:40:27 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/20 15:48:09 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_time
 typedef struct	s_philo
 {
 	int				id;
+	int				start;
 	struct s_rules	*rules;
 	struct s_forks	*forks;
 	t_time			time;
@@ -51,7 +52,8 @@ int		setup_philos(t_list *v);
 
 int		ft_stop(t_philo *v);
 int		ft_eaten_enough(t_philo *v);
-int		ft_take_forks(t_philo *v);
+
+void	ft_take_forks(t_philo *v);
 void	ft_eat(t_philo *v);
 void	ft_sleep(t_philo *v);
 void	ft_think(t_philo *v);

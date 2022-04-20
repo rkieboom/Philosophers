@@ -6,7 +6,7 @@
 #    By: rkieboom <rkieboom@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/03 16:05:06 by rkieboom      #+#    #+#                  #
-#    Updated: 2022/04/09 15:13:43 by rkieboom      ########   odam.nl          #
+#    Updated: 2022/04/14 03:25:14 by rkieboom      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -106,4 +106,4 @@ run : $(NAME)
 	./$(NAME) 8 800 200 200
 
 # This specifies the rules that does not correspond to any filename
-.PHONY	= all run clean fclean re bonus
+.PHONY	= all run clean fclean re
