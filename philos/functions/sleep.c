@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/09 14:45:50 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/14 03:10:24 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/21 00:03:35 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@ void	ft_sleep(t_philo *v)
 	}
 	printf("%lims %i is %ssleeping%s\n", get_time() - v->time.first_timestamp, v->id, KBLU, KWHT);
 	pthread_mutex_unlock(&v->stop_m);
+	pthread_mutex_lock(v->right_val);
+	pthread_mutex_lock(v->left_val);
+	*v->left_in_use = 0;
+	*v->right_in_use = 0;
+	pthread_mutex_unlock(v->right);
+	pthread_mutex_unlock(v->left);
+	pthread_mutex_unlock(v->right_val);
+	pthread_mutex_unlock(v->left_val);
 	while (timestamp[0] - timestamp[1] < v->rules->time_to_sleep)
 	{
 		timestamp[0] = get_time();

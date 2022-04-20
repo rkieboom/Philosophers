@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/09 14:45:51 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/20 16:12:07 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/20 23:24:21 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	ft_eat(t_philo *v)
 	// pthread_mutex_lock(&v->forks->value_m);
 	// v->forks->in_use = 0;
 	// v->forks->next->in_use = 0;
-	pthread_mutex_unlock(&v->forks->next->fork);
-	pthread_mutex_unlock(&v->forks->fork);
+	// pthread_mutex_unlock(&v->forks->next->fork);
+	// pthread_mutex_unlock(&v->forks->fork);
 	// pthread_mutex_unlock(&v->forks->next->value_m);
 	// pthread_mutex_unlock(&v->forks->value_m);
 	pthread_mutex_lock(&v->eat_count_m);

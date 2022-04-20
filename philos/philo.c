@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/08 23:56:30 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/14 03:41:52 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/20 23:45:54 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,14 @@ static void	loop(t_philo *v)
 	{
 		if (ft_stop(v))
 			return ;
-		ft_take_forks(v);
+		if (ft_take_forks(v))
+			break ;
 		if (ft_stop(v))
+		{
+			pthread_mutex_unlock(v->left);
+			pthread_mutex_unlock(v->right);
 			return ;
+		}
 		ft_eat(v);
 		if (ft_stop(v) || ft_eaten_enough(v))
 			return ;
@@ -89,5 +94,6 @@ void	*philo(void *args)
 	if (v->id % 2 == 0)
 		usleep(v->rules->time_to_eat * 1000);
 	loop(v);
+	printf("%i philo dead!\n", v->id);
 	return (0);
 }

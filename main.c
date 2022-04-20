@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/08 16:34:41 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/09 14:38:15 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/20 23:22:45 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ static void	free_all(t_list *v)
 {
 	if (v->rules)
 		free(v->rules);
-	if (v->forks)
-		freeforks(v->forks);
 	if (v->ph)
 		free(v->ph);
 }
@@ -29,7 +27,7 @@ int	main(int argc, char **argv)
 	ft_bzero(&v, sizeof(t_list));
 	if (lexer(argc, argv) || parse(&v, argv))
 		return (1);
-	if (init_forks(&v, 0))
+	if (init_forks(&v))
 		return (2);
 	if (setup_philos(&v))
 		return (3);

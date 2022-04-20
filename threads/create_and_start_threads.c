@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/09 01:21:21 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/09 18:25:14 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/20 23:27:19 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int	create_and_start_threads(t_list *v)
 	{
 		free(v->rules);
 		free(threads);
-		freeforks(v->forks);
 		return (1);
 	}
 	return (0);
