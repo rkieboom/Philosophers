@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/08 17:09:54 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/21 17:25:20 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/21 18:07:23 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,26 @@ int	init_forks(t_list *v)
 {
 	int	i;
 
-
 	i = 0;
-	v->forks_val = ft_calloc(v->rules->number_of_philos, sizeof(pthread_mutex_t));
+	v->forks_val = ft_calloc(v->rules->number_of_philos, \
+	sizeof(pthread_mutex_t));
 	if (!v->forks_val)
 		return (ft_write_error("Error, malloc failed!\n", 1));
 	v->in_use = ft_calloc(v->rules->number_of_philos, sizeof(int));
 	if (!v->in_use)
+	{
+		free(v->forks_val);
 		return (ft_write_error("Error, malloc failed!\n", 1));
+	}
 	while (i < v->rules->number_of_philos)
 	{
 		if (pthread_mutex_init(&v->forks_val[i], 0) != 0)
 		{
 			free_mutexes(v->forks_val, i);
 			free(v->in_use);
-			return (ft_write_error("Error, initizalizing mutex went wrong!\n", 1));
+			free(v->rules);
+			return (ft_write_error("Error, initizalizing \
+mutex went wrong!\n", 1));
 		}
 		i++;
 	}

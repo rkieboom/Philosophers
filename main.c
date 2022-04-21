@@ -6,13 +6,13 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/08 16:34:41 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/21 17:29:07 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/21 18:41:33 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-static void free_mutexes(t_list *v)
+static void	free_mutexes(t_list *v)
 {
 	int	i;
 
@@ -38,7 +38,7 @@ static void	free_all(t_list *v)
 
 int	main(int argc, char **argv)
 {
-	t_list v;
+	t_list	v;
 
 	ft_bzero(&v, sizeof(t_list));
 	if (lexer(argc, argv) || parse(&v, argv))

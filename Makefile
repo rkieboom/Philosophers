@@ -6,7 +6,7 @@
 #    By: rkieboom <rkieboom@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/03 16:05:06 by rkieboom      #+#    #+#                  #
-#    Updated: 2022/04/21 02:37:04 by rkieboom      ########   odam.nl          #
+#    Updated: 2022/04/21 18:18:34 by rkieboom      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ SRCS_PHILO_FUNC = 	philos/functions/eat.c philos/functions/ft_eaten_enough.c \
 
 SRCS_THREADS = 		threads/create_and_start_threads.c
 
-SRCS_MONITORING_THREAD =	monitoring_thread/monitoring_thread.c
+SRCS_MONITORING_THREAD =	monitoring_thread/monitoring_thread.c monitoring_thread/start_philos.c
 
 # String manipulation magic
 SRC		:= $(notdir $(SRCS))

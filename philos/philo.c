@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/08 23:56:30 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/21 17:26:49 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/21 18:39:37 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,10 @@ void	waiting_to_start(t_philo *ph)
 
 void	*philo(void *args)
 {
-	t_philo *v;
+	t_philo	*v;
 
 	v = (t_philo *)args;
-	printf("philo settings timestamp\n");
 	set_timestamp(&v->time);
-	printf("philo checking for exceptions\n");
 	waiting_to_start(v);
 	if (exceptions(v))
 		return (0);
@@ -90,6 +88,5 @@ void	*philo(void *args)
 	if (v->id % 2 == 0)
 		usleep(v->rules->time_to_eat * 1000);
 	loop(v);
-	printf("%i philo dead!\n", v->id);
 	return (0);
 }
