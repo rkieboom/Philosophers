@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/08 23:56:30 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/20 23:45:54 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/21 02:47:12 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static void	loop(t_philo *v)
 		if (ft_stop(v))
 			return ;
 		ft_think(v);
+		// usleep(1000);
 	}
 }
 

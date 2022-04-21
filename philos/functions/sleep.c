@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/09 14:45:50 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/21 00:03:35 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/21 02:54:30 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	ft_sleep(t_philo *v)
 	pthread_mutex_lock(v->left_val);
 	*v->left_in_use = 0;
 	*v->right_in_use = 0;
-	pthread_mutex_unlock(v->right);
-	pthread_mutex_unlock(v->left);
+	// pthread_mutex_unlock(v->right);
+	// pthread_mutex_unlock(v->left);
 	pthread_mutex_unlock(v->right_val);
 	pthread_mutex_unlock(v->left_val);
 	while (timestamp[0] - timestamp[1] < v->rules->time_to_sleep)

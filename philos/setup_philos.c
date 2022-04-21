@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/09 01:07:31 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/20 23:55:31 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/21 02:37:27 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,9 @@ static int	init_philos(t_list *v, t_philo *ph)
 }
 
 int		setup_philos(t_list *v)
-{
-	int		i;
+{	
 	t_philo	*ph;
 
-	i = 0;
 	ph = ft_calloc(v->rules->number_of_philos, sizeof(t_philo));
 	if (!ph)
 	{

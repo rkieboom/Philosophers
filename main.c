@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/08 16:34:41 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/20 23:22:45 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/21 02:40:33 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 static void	free_all(t_list *v)
 {
-	if (v->rules)
-		free(v->rules);
-	if (v->ph)
-		free(v->ph);
+	free(v->rules);
+	free(v->ph);
+	free(v->forks);
+	free(v->forks_val);
+	free(v->in_use);
+	
 }
 
 int	main(int argc, char **argv)
