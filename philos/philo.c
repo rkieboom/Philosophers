@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/08 23:56:30 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/21 02:47:12 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/21 17:26:49 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,18 @@ static void	loop(t_philo *v)
 	while (1)
 	{
 		if (ft_stop(v))
-			return ;
+			break ;
 		if (ft_take_forks(v))
 			break ;
 		if (ft_stop(v))
-		{
-			pthread_mutex_unlock(v->left);
-			pthread_mutex_unlock(v->right);
-			return ;
-		}
+			break ;
 		ft_eat(v);
 		if (ft_stop(v) || ft_eaten_enough(v))
-			return ;
+			break ;
 		ft_sleep(v);
 		if (ft_stop(v))
-			return ;
+			break ;
 		ft_think(v);
-		// usleep(1000);
 	}
 }
 

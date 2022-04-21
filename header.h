@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/08 16:35:10 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/20 23:52:59 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/21 17:24:55 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <pthread.h>
 # include "functions/functions.h"
 # include "philos/philo.h"
 
@@ -30,7 +31,6 @@ typedef struct s_rules
 typedef struct s_list
 {
 	t_rules			*rules;
-	pthread_mutex_t	*forks;
 	pthread_mutex_t	*forks_val;
 	int				*in_use;
 	struct s_philo	*ph;

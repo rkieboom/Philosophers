@@ -6,7 +6,7 @@
 /*   By: rkieboom <rkieboom@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/08 18:55:01 by rkieboom      #+#    #+#                 */
-/*   Updated: 2022/04/20 23:54:26 by rkieboom      ########   odam.nl         */
+/*   Updated: 2022/04/21 17:24:28 by rkieboom      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ typedef struct	s_philo
 	int				id;
 	int				start;
 	struct s_rules	*rules;
-	pthread_mutex_t	*left;
-	pthread_mutex_t	*right;
 	pthread_mutex_t	*left_val;
 	pthread_mutex_t	*right_val;
 	int				*left_in_use;
